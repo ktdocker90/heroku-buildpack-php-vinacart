@@ -13,7 +13,7 @@ function install_vinacart() {
 		unzip -o vinacart.zip &> /dev/null
 		#rm vinacart.zip
 	fi
-	
+	: <<EOF
 	echo "---> set files permission"
 	# set files permission
 	# 0755 or 0777
@@ -33,6 +33,7 @@ function install_vinacart() {
 	[[ -f "system/config.php" ]] && chmod 0777 system/config.php
 
 	chmod 0644 caidat.php
+EOF;
 
 	echo "done !"
 }
