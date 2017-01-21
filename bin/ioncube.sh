@@ -47,7 +47,8 @@ install_ioncube_ext() {
     install_ext "ioncube" "automatic" "http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz"
     exts+=("ioncube")
 
-    ln -s $PHP_EXT_DIR/ioncube_loader_lin_${PHP_VERSION%.*}.so $PHP_EXT_DIR/ioncube.so
+    local phpver="5.6"
+    ln -s $PHP_EXT_DIR/ioncube_loader_lin_${phpver}.so $PHP_EXT_DIR/ioncube.so
   fi
 }
 
