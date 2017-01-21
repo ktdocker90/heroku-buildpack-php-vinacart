@@ -241,7 +241,7 @@ if [[ "${PHP_VERSION}" ]]; then
     done
     
     # install ioncube extension
-    install_ioncube_ext
+    check_ioncube_ext
 
     # special treatment for New Relic; we enable it if we detect a license key for it
     install_newrelic_ext

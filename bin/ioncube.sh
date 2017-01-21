@@ -23,3 +23,16 @@ install_ioncube_ext() {
     
   fi
 }
+function check_ioncube_ext() {
+	local php_bin=${OPENSHIFT_RUNTIME_DIR}/php5/bin/php
+    local ioncube_version=`${php_bin} -r "echo var_export(extension_loaded('ionCube Loader') ,true);"`
+
+    if [[ ${ioncube_version} == "false" ]]; then
+        echo "Ioncube not installed or old version ${ioncube_version}"
+        install_ioncube_ext
+    else
+        echo "Ioncube up to date, version: ${ioncube_version}."
+        # reinstall
+        #build_ioncube
+    fi
+}
