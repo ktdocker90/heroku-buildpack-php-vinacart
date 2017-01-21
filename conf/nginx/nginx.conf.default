@@ -11,10 +11,19 @@ error_log  stderr;
 
 events {
     worker_connections  1024;
+    multi_accept on;
+
+    #enable each of the available workers to accept new connections one by one (should be off)
+    accept_mutex off;
+    
+    # time a worker process should wait before trying to acquire the resource again
+    accept_mutex_delay 500ms;
 }
 
 
 http {
+    proxy_hide_header X-Powered-By;
+
     include       mime.types;
     default_type  application/octet-stream;
 
@@ -25,10 +34,90 @@ http {
     #access_log  logs/access.log  main;
 
     sendfile        on;
+    sendfile_max_chunk 512k;
     #tcp_nopush     on;
 
     #keepalive_timeout  0;
-    keepalive_timeout  65;
+    keepalive_timeout  75;
 
-    #gzip  on;
+    keepalive_requests 100000;  #total number of requests allowed over a keepalive connection, e.g: 20
+    
+    # disables keepalive connections for a particular set of browsers.
+    #keepalive_disabled msie6 safari;   #unknown directive
+    
+    types_hash_max_size 4096;   #2048
+    
+    # For Security Reason
+    server_tokens off;
+    
+    # improved response time, improve network speed with keep-alive mode
+    tcp_nodelay on;
+    # for requests served with sendfile
+    tcp_nopush on;
+    
+    output_buffers 3 512k;  # only allow nginx 1.5MB of memory buffer for files.
+
+    server_names_hash_bucket_size 128;  # fix for very long server names
+    # server_name_in_redirect off;
+    types_hash_bucket_size 64;
+
+    ###
+    ### Buffers , timeout, compression
+    ###
+    # If request is larger than specified size, then NGINX sends back the HTTP 413(Request Entity too large) error
+    # Controlling Buffer Overflow Attacks
+    client_max_body_size 15m;   #maximum limit
+    client_body_timeout 60;
+    client_header_timeout 60;
+    
+    # 8k buffer for 32-bit systems , 16k buffer for 64-bit systems.
+    client_body_buffer_size  16k;
+    client_header_buffer_size 1m;
+    
+    # If the request URI exceeds the size of a single buffer, NGINX sends back the HTTP 414(Request URI Too Long)
+    large_client_header_buffers 4 8k; #allowed url length for a nginx request, increase to avoid 400 bad request
+    
+    # helpful for debugging purposes. It is not recommended for production deployments.
+    client_body_in_file_only off;   #clean
+    
+    # it optimizes I/O while reading the $request_body variable
+    client_body_in_single_buffer on;
+    
+    # store temporary files for the request body,will generate paths, such as temp_files/1/05/0000003051
+    #client_body_temp_pathtemp_files 1 2;   #unknown
+    
+    
+    # timeout for transmitting data to the client
+    # if client stop responding, free up memory -- default 60
+    send_timeout 60;
+    
+    # allow the server to close connection on non responding client, this will free up memory
+    reset_timedout_connection on;
+
+    ##
+    # Logging Settings
+    ##
+
+    #access_log /var/log/nginx/access.log compression;  #ie: combined
+    access_log off;
+
+    
+    ##
+    # Gzip/compression Settings
+    ##
+    # reduce the data that needs to be sent over network
+    gzip on;
+    gzip_static always; # will skip the client check and will serve the request with a .gz file
+    gunzip on;  # enables the decompression of .gz responses in NGINX
+    gzip_disable "MSIE [1-6].(?!.*SV1)";   #"msie6";
+    gzip_vary on;
+    gzip_proxied expired no-cache no-store private auth;    #any;
+    gzip_comp_level 2;  # should from 1 to 3
+    gzip_min_length 10240;  # 512
+    gzip_buffers 16 8k;
+    gzip_http_version 1.1;
+    gzip_types text/css text/javascript text/xml text/plain text/x-component 
+    application/javascript application/x-javascript application/json 
+    application/xml  application/rss+xml font/truetype application/x-font-ttf 
+    font/opentype application/vnd.ms-fontobject image/svg+xml;
 }

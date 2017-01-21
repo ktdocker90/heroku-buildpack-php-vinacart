@@ -6,7 +6,7 @@ cwd=$(pwd)
 
 echo "-----> Building Phalcon..."
 
-if [[! -f $PHP_EXT_DIR/phalcon.so ]]; then
+if [[ ! -f $PHP_EXT_DIR/phalcon.so ]]; then
 
 git clone $dep_url -q
 
