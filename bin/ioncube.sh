@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-install_ioncube_ext_1() {
+install_ioncube_test() {
   #if [[ ( ${#exts[@]} -eq 0 || ! ${exts[*]} =~ "ioncube" ) ]]; then
   local phpver="5.6"
 
@@ -48,7 +48,8 @@ install_ioncube_ext() {
     exts+=("ioncube")
 
     local phpver="5.6"
-    ln -s $PHP_EXT_DIR/ioncube/ioncube_loader_lin_${phpver}.so $PHP_EXT_DIR/ioncube.so
+    #ln -s $PHP_EXT_DIR/ioncube/ioncube_loader_lin_${phpver}.so $PHP_EXT_DIR/ioncube.so
+    ln -s ${BUILD_DIR}/.heroku/php/ioncube/ioncube_loader_lin_${phpver}.so $PHP_EXT_DIR/ioncube.so
   fi
 }
 
