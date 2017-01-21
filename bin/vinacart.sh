@@ -14,10 +14,21 @@ function install_vinacart() {
 		unzip -o vinacart.zip &> /dev/null
 		#rm vinacart.zip
 		touch system/config.php
+		touch system/logs/error.txt
+		mkdir -p system/logs/code
+		mkdir -p system/logs/temp
+		touch system/logs/auth_pass.txt
+		touch system/logs/task_log.txt
 	fi
 	#: <<EOF
 	echo "---> set files permission"
 	# set files permission
+	chmod -R 0777 system/logs/code
+	chmod -R 0777 system/logs/temp
+	chmod 0777 system/logs/auth_pass.txt
+	chmod 0777 system/logs/task_log.txt
+	chmod 0777 system/logs/error.txt
+
 	# 0755 or 0777
 	chmod -R 0777 image/
 	chmod -R 0777 system/
