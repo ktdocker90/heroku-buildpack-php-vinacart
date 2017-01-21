@@ -23,7 +23,7 @@ install_ioncube_ext() {
     #local PHP_VERSION=$(php -r "echo PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION;")
     local phpver="5.6"
     #cp "ioncube/ioncube_loader_lin_${PHP_VERSION}.so" "$extension_dir"
-    cp $BUILD_DIR/.heroku/tmp/ioncube/ioncube_loader_lin_${phpver%.*}.so $PHP_EXT_DIR/
+    cp $BUILD_DIR/.heroku/tmp/ioncube/ioncube_loader_lin_${phpver}.so $PHP_EXT_DIR/
 	#ln -s $BUILD_DIR/.heroku/tmp/ioncube/ioncube_loader_lin_${PHP_VERSION%.*}.so $PHP_EXT_DIR/ioncube.so
 	
     sed -i '1 a zend_extension = "ioncube_loader_lin_'${phpver}'.so"' ${BUILD_DIR}/.heroku/php/etc/php/php.ini
