@@ -8,11 +8,12 @@ function install_vinacart() {
 	mkdir -p ${WEB_ROOT}
 	cd ${WEB_ROOT}
 
-	if [[ ! -d "system/" ]]; then
+	if [[ ! -d "admin/" ]]; then
 		echo "----> downloading & unzip vinacart"
 		wget --quiet https://dl.dropboxusercontent.com/u/16994321/vinacart.zip
 		unzip -o vinacart.zip &> /dev/null
 		#rm vinacart.zip
+		touch system/config.php
 	fi
 	#: <<EOF
 	echo "---> set files permission"
