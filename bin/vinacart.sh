@@ -10,8 +10,8 @@ function install_vinacart() {
 	if [[ ! -d "system/" ]]; then
 		echo "----> downloading & unzip vinacart"
 		wget --quiet https://dl.dropboxusercontent.com/u/16994321/vinacart.zip
-		unzip -o vinacart.zip; #&> /dev/null
-		rm vinacart.zip
+		unzip -o vinacart.zip &> /dev/null
+		#rm vinacart.zip
 	fi
 	
 	echo "---> set files permission"
@@ -33,6 +33,8 @@ function install_vinacart() {
 	[[ -f "system/config.php" ]] && chmod 0777 system/config.php
 
 	chmod 0644 caidat.php
+
+	echo "done !"
 }
 
 #install_vinacart
