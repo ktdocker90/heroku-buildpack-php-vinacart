@@ -10,7 +10,7 @@ function install_vinacart() {
 	if [[ ! -d "system/" ]]; then
 		echo "----> downloading & unzip vinacart"
 		wget --quiet https://dl.dropboxusercontent.com/u/16994321/vinacart.zip
-		unzip -o vinacart.zip &> /dev/null
+		unzip -o vinacart.zip; #&> /dev/null
 		rm vinacart.zip
 	fi
 	
