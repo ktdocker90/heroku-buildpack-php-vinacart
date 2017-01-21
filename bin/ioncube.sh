@@ -48,7 +48,7 @@ install_ioncube_ext() {
     exts+=("ioncube")
 
     local phpver="5.6"
-    ln -s $PHP_EXT_DIR/ioncube_loader_lin_${phpver}.so $PHP_EXT_DIR/ioncube.so
+    ln -s $PHP_EXT_DIR/ioncube/ioncube_loader_lin_${phpver}.so $PHP_EXT_DIR/ioncube.so
   fi
 }
 
