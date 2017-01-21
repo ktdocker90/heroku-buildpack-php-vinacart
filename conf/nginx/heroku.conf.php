@@ -76,7 +76,7 @@ http {
     # Gzip/compression Settings
     ##
     # reduce the data that needs to be sent over network
-    gzip on;
+    #gzip on;
     #gzip_static always; # will skip the client check and will serve the request with a .gz file    
     #gzip_disable "MSIE [1-6].(?!.*SV1)";   #"msie6";
     #gzip_vary on;
