@@ -366,12 +366,14 @@ export -f composer
 EOF
 fi
 
+#install vinacart ecommerce
+install_vinacart
+
 install_newrelic_daemon
 install_newrelic_userini
 
 install_blackfire_agent
-#install vinacart ecommerce
-install_vinacart
+
 
 if [[ ! -f "Procfile" ]]; then
     bindir=$(composer config bin-dir 2> /dev/null | tail -n 1) # tail, as composer echos outdated version warnings to STDOUT
