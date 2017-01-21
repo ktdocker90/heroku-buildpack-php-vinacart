@@ -3,6 +3,7 @@
 install_ioncube_ext() {
   #if [[ ( ${#exts[@]} -eq 0 || ! ${exts[*]} =~ "ioncube" ) ]]; then
   if [[ ! -f $PHP_EXT_DIR/ioncube.so ]];then
+  	local php_bin=`which php`
     #install_ext "ioncube" "automatic" "http://heroku-buildpack-php-with-ioncube.s3.amazonaws.com/ioncube.tar.gz"
     #exts+=("ioncube")
     curl --silent --location "http://heroku-buildpack-php-with-ioncube.s3.amazonaws.com/ioncube.tar.gz" | tar xz -C $BUILD_DIR/.heroku/php
@@ -24,7 +25,7 @@ install_ioncube_ext() {
   fi
 }
 function check_ioncube_ext() {
-	local php_bin=${OPENSHIFT_RUNTIME_DIR}/php5/bin/php
+	local php_bin=`which php`
     local ioncube_version=`${php_bin} -r "echo var_export(extension_loaded('ionCube Loader') ,true);"`
 
     if [[ ${ioncube_version} == "false" ]]; then

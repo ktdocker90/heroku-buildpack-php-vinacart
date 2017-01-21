@@ -43,4 +43,5 @@ function install_phalcon() {
 	fi
 
 }
-	
+
+check_phalcon
