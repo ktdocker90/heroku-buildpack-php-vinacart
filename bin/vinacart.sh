@@ -3,6 +3,7 @@
 WEB_ROOT="${BUILD_DIR}/public"
 
 function install_vinacart() {
+	local cwd=$(pwd)
 	echo "----> install vinacart ecommerce (http://vinacart.net)"
 	mkdir -p ${WEB_ROOT}
 	cd ${WEB_ROOT}
@@ -34,8 +35,13 @@ function install_vinacart() {
 
 	chmod 0644 caidat.php
 EOF
-
+	
+	if [[ ! -f "${BUILD_DIR}/public/index.php" ]];then
+		echo "<?php phpinfo();?>" > "${BUILD_DIR}/public/index.php"
+	fi
 	echo "done !"
+
+	cd ${cwd}
 }
 
 #install_vinacart
