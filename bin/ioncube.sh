@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-install_ioncube_ext() {
+install_ioncube_ext_1() {
   #if [[ ( ${#exts[@]} -eq 0 || ! ${exts[*]} =~ "ioncube" ) ]]; then
   local phpver="5.6"
 
@@ -32,13 +32,22 @@ install_ioncube_ext() {
 	#${BUILD_DIR}/.heroku/php/etc/php/conf.d/ext-${ext}.ini
 	
     sed -i '1 a zend_extension = "ioncube_loader_lin_'${phpver}'.so"' ${BUILD_DIR}/.heroku/php/etc/php/php.ini
-    sed -i '1 a zend_extension = "ioncube_loader_lin_'${phpver}'.so"' ${BUILD_DIR}/vendor/heroku/heroku-buildpack-php/conf/php/php.ini
+    #sed -i '1 a zend_extension = "ioncube_loader_lin_'${phpver}'.so"' ${BUILD_DIR}/vendor/heroku/heroku-buildpack-php/conf/php/php.ini
 
     # test
     #local ioncube_version=`${php_bin} -r "echo var_export(extension_loaded('ionCube Loader') ,true);"`
     #echo "---> Current ioncube version => $ioncube_version"
     
     cd ${cwd}
+  fi
+}
+
+install_ioncube_ext() {
+  if [[ ( ${#exts[@]} -eq 0 || ! ${exts[*]} =~ "ioncube" ) ]]; then
+    install_ext "ioncube" "automatic" "http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz"
+    exts+=("ioncube")
+
+    ln -s $PHP_EXT_DIR/ioncube_loader_lin_${PHP_VERSION%.*}.so $PHP_EXT_DIR/ioncube.so
   fi
 }
 
