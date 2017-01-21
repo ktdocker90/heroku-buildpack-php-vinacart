@@ -6,6 +6,8 @@ cwd=$(pwd)
 
 echo "-----> Building Phalcon..."
 
+if [[! -f $PHP_EXT_DIR/phalcon.so ]]; then
+
 git clone $dep_url -q
 
 if [ ! -d "$phalcon_dir" ]; then
@@ -24,3 +26,6 @@ make
 make install
 
 cd $cwd
+else
+	echo "----> phalcon already exist"
+fi
