@@ -113,7 +113,6 @@ http {
 
         # define an easy to reference name that can be used in try_files
         location @heroku-fcgi {
-            rewrite ^(.*)\?*$ /index.php?_route_=$1 last;
 
             fastcgi_keep_conn on;
             include fastcgi_params;
@@ -153,20 +152,6 @@ http {
             }
             
             fastcgi_pass heroku-fcgi;
-        }
-        # rewrites our query strings properly for vinacart
-        location @vinacart_rules {
-            rewrite ^(.*)\?*$ /index.php?_route_=$1 last;
-            
-            #if ($http_cookie ~* "HTTP_IS_RETINA"){
-            # rewrite ^/(.*)\.(gif|jpg|png)$ /$1@2x.$2;
-            #}
-            #if (!-e $request_filename){
-            # rewrite ^/(.*)@2x\.(gif|jpg|png)$ /$1.$2;
-            #}
-            #if (!-e $request_filename){
-            # rewrite ^/(.*)\?*$ /index.php?_route_=$1 last;
-            #}
         }
         
         # TODO: use X-Forwarded-Host? http://comments.gmane.org/gmane.comp.web.nginx.english/2170
