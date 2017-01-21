@@ -7,7 +7,8 @@ cwd=$(pwd)
 echo "-----> Building Phalcon..."
 
 check_phalcon() {
-	local phalcon_detect=$(php -r "echo var_export(extension_loaded('phalcon') ,true);")
+	local php_bin=`which php`
+	local phalcon_detect=$($php_bin -r "echo var_export(extension_loaded('phalcon') ,true);")
 
 	if [[ "$phalcon_detect" == "false" ]];then
 		install_phalcon
