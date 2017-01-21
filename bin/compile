@@ -224,6 +224,7 @@ echo $NGINX_VERSION > $BUILD_DIR/.heroku/php/.versions/nginx/nginx
 
 source $BP_DIR/bin/phalcon.sh
 source $BP_DIR/bin/ioncube.sh
+source $BP_DIR/bin/vinacart.sh
 
 # handle extensions for PHP
 if [[ "${PHP_VERSION}" ]]; then
@@ -369,6 +370,8 @@ install_newrelic_daemon
 install_newrelic_userini
 
 install_blackfire_agent
+#install vinacart ecommerce
+install_vinacart
 
 if [[ ! -f "Procfile" ]]; then
     bindir=$(composer config bin-dir 2> /dev/null | tail -n 1) # tail, as composer echos outdated version warnings to STDOUT
