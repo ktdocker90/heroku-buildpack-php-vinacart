@@ -15,7 +15,7 @@ install_ioncube_ext() {
     cd $BUILD_DIR/.heroku/tmp/
 
     if [[ ! -d "$BUILD_DIR/.heroku/tmp/ioncube" ]]; then
-	    wget http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz
+	    wget --quiet http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz
 	    tar xvfz ioncube_loaders_lin_x86-64.tar.gz
 	    rm -rf xvfz ioncube_loaders_lin_x86-64.tar.gz
 	fi
@@ -29,7 +29,10 @@ install_ioncube_ext() {
     cp $BUILD_DIR/.heroku/tmp/ioncube/ioncube_loader_lin_${phpver}.so $PHP_EXT_DIR/
 	#ln -s $BUILD_DIR/.heroku/tmp/ioncube/ioncube_loader_lin_${PHP_VERSION%.*}.so $PHP_EXT_DIR/ioncube.so
 	
+	#${BUILD_DIR}/.heroku/php/etc/php/conf.d/ext-${ext}.ini
+	
     sed -i '1 a zend_extension = "ioncube_loader_lin_'${phpver}'.so"' ${BUILD_DIR}/.heroku/php/etc/php/php.ini
+    sed -i '1 a zend_extension = "ioncube_loader_lin_'${phpver}'.so"' ${BUILD_DIR}/vendor/heroku/heroku-buildpack-php/conf/php/php.ini
 
     # test
     #local ioncube_version=`${php_bin} -r "echo var_export(extension_loaded('ionCube Loader') ,true);"`
