@@ -7,10 +7,10 @@ install_ioncube_ext() {
   	local php_bin=`which php`
     #install_ext "ioncube" "automatic" "http://heroku-buildpack-php-with-ioncube.s3.amazonaws.com/ioncube.tar.gz"
     #exts+=("ioncube")
-    curl --silent --location "http://heroku-buildpack-php-with-ioncube.s3.amazonaws.com/ioncube.tar.gz" | tar xz -C $BUILD_DIR/.heroku/php
+    curl --silent --location "http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz" | tar xz -C $BUILD_DIR/.heroku/php
     echo "- ioncube automatic; downloaded, using 'php.ini')" | indent
 	
-	ln -s $PHP_EXT_DIR/ioncube_loader_lin_${PHP_VERSION%.*}.so $PHP_EXT_DIR/ioncube.so
+	ln -s $PHP_EXT_DIR/ioncube/ioncube_loader_lin_${PHP_VERSION%.*}.so $PHP_EXT_DIR/ioncube.so
 
     local PHP_VERSION=$(php -r "echo PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION;")
     PHP_VERSION="5.6"
