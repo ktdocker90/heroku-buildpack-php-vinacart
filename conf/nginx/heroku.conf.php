@@ -77,19 +77,18 @@ http {
     ##
     # reduce the data that needs to be sent over network
     gzip on;
-    gzip_static always; # will skip the client check and will serve the request with a .gz file
-    gunzip on;  # enables the decompression of .gz responses in NGINX
-    gzip_disable "MSIE [1-6].(?!.*SV1)";   #"msie6";
-    gzip_vary on;
-    gzip_proxied expired no-cache no-store private auth;    #any;
-    gzip_comp_level 2;  # should from 1 to 3
-    gzip_min_length 10240;  # 512
-    gzip_buffers 16 8k;
-    gzip_http_version 1.1;
-    gzip_types text/css text/javascript text/xml text/plain text/x-component 
-    application/javascript application/x-javascript application/json 
-    application/xml  application/rss+xml font/truetype application/x-font-ttf 
-    font/opentype application/vnd.ms-fontobject image/svg+xml;
+    #gzip_static always; # will skip the client check and will serve the request with a .gz file    
+    #gzip_disable "MSIE [1-6].(?!.*SV1)";   #"msie6";
+    #gzip_vary on;
+    #gzip_proxied expired no-cache no-store private auth;    #any;
+    #gzip_comp_level 2;  # should from 1 to 3
+    #gzip_min_length 10240;  # 512
+    #gzip_buffers 16 8k;
+    #gzip_http_version 1.1;
+    #gzip_types text/css text/javascript text/xml text/plain text/x-component 
+    #application/javascript application/x-javascript application/json 
+    #application/xml  application/rss+xml font/truetype application/x-font-ttf 
+    #font/opentype application/vnd.ms-fontobject image/svg+xml;
 
     fastcgi_buffers 256 4k;
 
