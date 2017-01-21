@@ -4,13 +4,14 @@ dep_url=git://github.com/phalcon/cphalcon.git
 phalcon_dir=cphalcon
 cwd=$(pwd)
 
-echo "-----> Building Phalcon..."
+
 
 check_phalcon() {
 	local php_bin=`which php`
 	local phalcon_detect=$($php_bin -r "echo var_export(extension_loaded('phalcon') ,true);")
 
 	if [[ "$phalcon_detect" == "false" ]];then
+		echo "-----> Building Phalcon..."
 		install_phalcon
 	else
 		echo "phalcon installed on this machine."
@@ -45,4 +46,4 @@ function install_phalcon() {
 
 }
 
-check_phalcon
+#check_phalcon
