@@ -8,6 +8,8 @@ install_ioncube_ext() {
     #install_ext "ioncube" "automatic" "http://heroku-buildpack-php-with-ioncube.s3.amazonaws.com/ioncube.tar.gz"
     #exts+=("ioncube")
     #curl --silent --location "http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz" | tar xz -C $BUILD_DIR/.heroku/php
+    local cwd=$(pwd)
+
     mkdir -p $BUILD_DIR/.heroku/tmp
     cd $BUILD_DIR/.heroku/tmp/
 
@@ -32,6 +34,7 @@ install_ioncube_ext() {
     #local ioncube_version=`${php_bin} -r "echo var_export(extension_loaded('ionCube Loader') ,true);"`
     #echo "---> Current ioncube version => $ioncube_version"
     
+    cd ${cwd}
   fi
 }
 
